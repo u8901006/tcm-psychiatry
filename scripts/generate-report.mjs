@@ -467,7 +467,12 @@ async function main() {
   const targetDate = process.env.TARGET_DATE || new Date().toISOString().slice(0, 10);
   const papersData = loadPapers("papers.json");
 
+  const reportPath = `docs/tcm-${targetDate}.html`;
   if (!papersData || !papersData.papers || papersData.papers.length === 0) {
+    if (existsSync(reportPath)) {
+      console.error(`[INFO] Report already exists for ${targetDate}, skipping empty overwrite`);
+      return;
+    }
     console.error("[WARN] No papers found, generating empty report");
     const analysis = {
       date: targetDate,
@@ -478,8 +483,8 @@ async function main() {
       topic_distribution: {},
     };
     const html = generateHtml(analysis, MODELS[0]);
-    writeFileSync(`docs/tcm-${targetDate}.html`, html);
-    console.error(`[INFO] Empty report saved to docs/tcm-${targetDate}.html`);
+    writeFileSync(reportPath, html);
+    console.error(`[INFO] Empty report saved to ${reportPath}`);
     return;
   }
 
