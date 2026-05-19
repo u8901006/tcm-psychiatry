@@ -1,10 +1,14 @@
 import { readFileSync, writeFileSync, existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
-const API_BASE = "https://open.bigmodel.cn/api/coding/paas/v4";
+const API_ENDPOINTS = [
+  "https://open.bigmodel.cn/api/paas/v4",
+  "https://open.bigmodel.cn/api/coding/paas/v4",
+];
 const MODELS = ["GLM-5-Turbo", "GLM-4.7", "GLM-4.7-Flash"];
 const MAX_TOKENS = 50000;
 const TIMEOUT_MS = 480_000;
+const MAX_PAPERS_TO_AI = 30;
 
 const TCM_TAGS = [
   "中草藥", "針灸", "電針", "耳針", "艾灸", "推拿",
@@ -97,9 +101,18 @@ function saveSummarizedPmids(map, newPmids, date) {
 async function analyzeWithAI(apiKey, papersData) {
   const dateStr = papersData.date;
   const count = papersData.count;
-  const papersText = JSON.stringify(papersData.papers, null, 2);
+  const truncated = papersData.papers.slice(0, MAX_PAPERS_TO_AI).map((p) => ({
+    pmid: p.pmid,
+    title: p.title,
+    journal: p.journal,
+    date: p.date,
+    abstract: (p.abstract || "").slice(0, 800),
+    url: p.url,
+    keywords: p.keywords,
+  }));
+  const papersText = JSON.stringify(truncated, null, 2);
 
-  const userPrompt = `以下是 ${dateStr} 從 PubMed 抓取的最新中醫精神醫學文獻（共 ${count} 篇）。
+  const userPrompt = `以下是 ${dateStr} 從 PubMed 抓取的最新中醫精神醫學文獻（共 ${count} 篇，已截取前 ${truncated.length} 篇）。
 
 請進行以下分析，並以 JSON 格式回傳（不要用 markdown code block）：
 
@@ -157,67 +170,72 @@ ${papersText}
     "Content-Type": "application/json",
   };
 
-  for (const model of MODELS) {
-    for (let attempt = 0; attempt < 3; attempt++) {
-      try {
-        console.error(`[INFO] Trying ${model} (attempt ${attempt + 1})...`);
-        const resp = await fetch(`${API_BASE}/chat/completions`, {
-          method: "POST",
-          headers,
-          body: JSON.stringify({
-            model,
-            messages: [
-              { role: "system", content: SYSTEM_PROMPT },
-              { role: "user", content: userPrompt },
-            ],
-            temperature: 0.3,
-            top_p: 0.9,
-            max_tokens: MAX_TOKENS,
-          }),
-          signal: AbortSignal.timeout(TIMEOUT_MS),
-        });
+  for (const apiBase of API_ENDPOINTS) {
+    for (const model of MODELS) {
+      for (let attempt = 0; attempt < 2; attempt++) {
+        try {
+          console.error(`[INFO] Trying ${model} via ${apiBase} (attempt ${attempt + 1})...`);
+          const controller = new AbortController();
+          const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+          const resp = await fetch(`${apiBase}/chat/completions`, {
+            method: "POST",
+            headers,
+            body: JSON.stringify({
+              model,
+              messages: [
+                { role: "system", content: SYSTEM_PROMPT },
+                { role: "user", content: userPrompt },
+              ],
+              temperature: 0.3,
+              top_p: 0.9,
+              max_tokens: MAX_TOKENS,
+            }),
+            signal: controller.signal,
+          });
+          clearTimeout(timer);
 
-        if (resp.status === 429) {
-          const wait = 60 * (attempt + 1);
-          console.error(`[WARN] Rate limited, waiting ${wait}s...`);
-          await new Promise((r) => setTimeout(r, wait * 1000));
-          continue;
-        }
-        if (!resp.ok) {
-          const body = await resp.text().catch(() => "");
-          console.error(`[ERROR] ${model} HTTP ${resp.status}: ${body.slice(0, 200)}`);
-          break;
-        }
+          if (resp.status === 429) {
+            const wait = 60 * (attempt + 1);
+            console.error(`[WARN] Rate limited, waiting ${wait}s...`);
+            await new Promise((r) => setTimeout(r, wait * 1000));
+            continue;
+          }
+          if (!resp.ok) {
+            const body = await resp.text().catch(() => "");
+            console.error(`[ERROR] ${model} HTTP ${resp.status}: ${body.slice(0, 300)}`);
+            break;
+          }
 
-        const data = await resp.json();
-        const raw = data?.choices?.[0]?.message?.content?.trim();
-        if (!raw) {
-          console.error(`[WARN] Empty response from ${model}`);
-          continue;
-        }
+          const data = await resp.json();
+          const raw = data?.choices?.[0]?.message?.content?.trim();
+          if (!raw) {
+            console.error(`[WARN] Empty response from ${model}`);
+            continue;
+          }
 
-        const result = robustJsonParse(raw);
-        if (!result) {
-          console.error(`[WARN] JSON parse failed on attempt ${attempt + 1}`);
-          if (attempt < 2) await new Promise((r) => setTimeout(r, 5000));
-          continue;
-        }
+          const result = robustJsonParse(raw);
+          if (!result) {
+            console.error(`[WARN] JSON parse failed on attempt ${attempt + 1}`);
+            if (attempt < 1) await new Promise((r) => setTimeout(r, 5000));
+            continue;
+          }
 
-        console.error(
-          `[INFO] Analysis complete: ${(result.top_picks || []).length} top picks, ${(result.all_papers || []).length} other papers`
-        );
-        return result;
-      } catch (e) {
-        if (e.name === "TimeoutError" || e.name === "AbortError") {
-          console.error(`[WARN] ${model} timed out on attempt ${attempt + 1}`);
-        } else {
-          console.error(`[ERROR] ${model} failed: ${e.message}`);
+          console.error(
+            `[INFO] Analysis complete: ${(result.top_picks || []).length} top picks, ${(result.all_papers || []).length} other papers`
+          );
+          return result;
+        } catch (e) {
+          const errName = e?.cause?.code || e.name || "Unknown";
+          console.error(`[ERROR] ${model} via ${apiBase} failed (${errName}): ${e.message}`);
+          if (e.name === "AbortError") {
+            console.error(`[WARN] ${model} timed out after ${TIMEOUT_MS / 1000}s`);
+          }
         }
       }
     }
   }
 
-  console.error("[ERROR] All models and attempts failed");
+  console.error("[ERROR] All models and endpoints failed");
   return null;
 }
 
