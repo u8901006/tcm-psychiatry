@@ -1,12 +1,9 @@
 import { readFileSync, writeFileSync, existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
-const API_ENDPOINTS = [
-  "https://open.bigmodel.cn/api/paas/v4",
-  "https://open.bigmodel.cn/api/coding/paas/v4",
-];
-const MODELS = ["GLM-5-Turbo", "GLM-4.7", "GLM-4.7-Flash"];
-const MAX_TOKENS = 50000;
+const API_ENDPOINTS = ["https://integrate.api.nvidia.com/v1"];
+const MODELS = ["nvidia/nemotron-3-super-120b-a12b", "nvidia/nemotron-3-nano-30b-a3b"];
+const MAX_TOKENS = 16384;
 const TIMEOUT_MS = 480_000;
 const MAX_PAPERS_TO_AI = 30;
 
@@ -186,9 +183,11 @@ ${papersText}
                 { role: "system", content: SYSTEM_PROMPT },
                 { role: "user", content: userPrompt },
               ],
-              temperature: 0.3,
-              top_p: 0.9,
+              temperature: 1.0,
+              top_p: 0.95,
               max_tokens: MAX_TOKENS,
+              stream: false,
+              chat_template_kwargs: { enable_thinking: false },
             }),
             signal: controller.signal,
           });
@@ -412,7 +411,7 @@ function generateHtml(analysis, modelUsed) {
       <div class="header-meta">
         <span class="badge badge-date">📅 ${dateDisplay}</span>
         <span class="badge badge-count">📊 ${totalCount} 篇文獻</span>
-        <span class="badge badge-source">Powered by PubMed + Zhipu AI</span>
+        <span class="badge badge-source">Powered by PubMed + NVIDIA AI</span>
       </div>
     </div>
   </header>
@@ -458,9 +457,9 @@ function generateHtml(analysis, modelUsed) {
 }
 
 async function main() {
-  const apiKey = process.env.ZHIPU_API_KEY;
+  const apiKey = process.env.NVIDIA_API_KEY;
   if (!apiKey) {
-    console.error("[ERROR] ZHIPU_API_KEY not set");
+    console.error("[ERROR] NVIDIA_API_KEY not set");
     process.exit(1);
   }
 

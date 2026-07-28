@@ -63,9 +63,9 @@ jobs:
             echo '{"date":"${{ steps.date.outputs.target }}","count":0,"papers":[]}' > papers.json
           fi
 
-      - name: Generate report with Zhipu AI
+      - name: Generate report with NVIDIA AI
         env:
-          ZHIPU_API_KEY: ${{ secrets.ZHIPU_API_KEY }}
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
           TARGET_DATE: ${{ steps.date.outputs.target }}
         run: node scripts/generate-report.mjs
 
