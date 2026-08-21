@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TCM Psychiatry · 中醫精神醫學文獻日報 · 2026年8月21日</title>
+<meta name="description" content="2026年8月21日 中醫精神醫學文獻日報，由 AI 自動彙整 PubMed 最新論文"/>
+<style>
+  :root { --bg: #f6f1e8; --surface: #fffaf2; --line: #d8c5ab; --text: #2b2118; --muted: #766453; --accent: #8c4f2b; --accent-soft: #ead2bf; --card-bg: color-mix(in srgb, var(--surface) 92%, white); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(circle at top, #fff6ea 0, var(--bg) 55%, #ead8c6 100%); color: var(--text); font-family: "Noto Sans TC", "PingFang TC", "Helvetica Neue", Arial, sans-serif; min-height: 100vh; overflow-x: hidden; }
+  .container { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 60px 32px 80px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 48px; height: 48px; border-radius: 14px; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; box-shadow: 0 4px 20px rgba(140,79,43,0.25); }
+  .header-text h1 { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .header-meta { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; letter-spacing: 0.3px; }
+  .badge-date { background: var(--accent-soft); border: 1px solid var(--line); color: var(--accent); }
+  .badge-count { background: rgba(140,79,43,0.06); border: 1px solid var(--line); color: var(--muted); }
+  .badge-source { background: transparent; color: var(--muted); font-size: 11px; padding: 0 4px; }
+  .summary-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 28px 32px; margin-bottom: 32px; box-shadow: 0 20px 60px rgba(61,36,15,0.06); animation: fadeUp 0.5s ease 0.1s both; }
+  .summary-card h2 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.6px; color: var(--accent); margin-bottom: 16px; }
+  .summary-text { font-size: 15px; line-height: 1.8; color: var(--text); }
+  .section { margin-bottom: 36px; animation: fadeUp 0.5s ease both; }
+  .section-title { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .section-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; background: var(--accent-soft); }
+  .news-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 22px 26px; margin-bottom: 12px; box-shadow: 0 8px 30px rgba(61,36,15,0.04); transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+  .news-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .news-card.featured { border-left: 3px solid var(--accent); }
+  .news-card.featured:hover { border-color: var(--accent); }
+  .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .rank-badge { background: var(--accent); color: #fff7f0; font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 6px; }
+  .emoji-icon { font-size: 18px; }
+  .card-header-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .emoji-sm { font-size: 14px; }
+  .news-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.5; }
+  .journal-source { font-size: 12px; color: var(--accent); margin-bottom: 8px; opacity: 0.8; }
+  .news-card p { font-size: 13.5px; line-height: 1.75; color: var(--muted); }
+  .card-footer { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag { padding: 2px 9px; background: var(--accent-soft); border-radius: 999px; font-size: 11px; color: var(--accent); }
+  .news-card a { font-size: 12px; color: var(--accent); text-decoration: none; opacity: 0.7; margin-left: auto; }
+  .news-card a:hover { opacity: 1; }
+  .utility-high { color: #5a7a3a; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(90,122,58,0.1); border-radius: 4px; }
+  .utility-mid { color: #9f7a2e; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(159,122,46,0.1); border-radius: 4px; }
+  .utility-low { color: var(--muted); font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(118,100,83,0.08); border-radius: 4px; }
+  .utility-sm { font-size: 10px; }
+  .pico-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; padding: 12px; background: rgba(255,253,249,0.8); border-radius: 14px; border: 1px solid var(--line); }
+  .pico-item { display: flex; gap: 8px; align-items: baseline; }
+  .pico-label { font-size: 10px; font-weight: 700; color: #fff7f0; background: var(--accent); padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+  .pico-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .keywords-section { margin-bottom: 36px; }
+  .keywords { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .keyword { padding: 5px 14px; background: var(--accent-soft); border: 1px solid var(--line); border-radius: 20px; font-size: 12px; color: var(--accent); cursor: default; transition: background 0.2s; }
+  .keyword:hover { background: rgba(140,79,43,0.18); }
+  .topic-section { margin-bottom: 36px; }
+  .topic-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .topic-name { font-size: 13px; color: var(--muted); width: 100px; flex-shrink: 0; text-align: right; }
+  .topic-bar-bg { flex: 1; height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .topic-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #c47a4a); border-radius: 4px; transition: width 0.6s ease; }
+  .topic-count { font-size: 12px; color: var(--accent); width: 24px; }
+  .links-banner { margin-top: 48px; display: flex; flex-direction: column; gap: 12px; animation: fadeUp 0.5s ease 0.4s both; }
+  .banner-link { display: flex; align-items: center; gap: 14px; padding: 18px 24px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; text-decoration: none; color: var(--text); transition: all 0.2s; box-shadow: 0 8px 30px rgba(61,36,15,0.04); }
+  .banner-link:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .banner-icon { font-size: 28px; flex-shrink: 0; }
+  .banner-name { font-size: 15px; font-weight: 700; color: var(--text); flex: 1; }
+  .banner-arrow { font-size: 18px; color: var(--accent); font-weight: 700; }
+  footer { margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); display: flex; justify-content: space-between; animation: fadeUp 0.5s ease 0.5s both; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 600px) { .container { padding: 36px 18px 60px; } .summary-card, .news-card { padding: 20px 18px; } .pico-grid { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 6px; text-align: center; } .topic-name { width: 70px; font-size: 11px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">🌿</div>
+    <div class="header-text">
+      <h1>TCM Psychiatry · 中醫精神醫學文獻日報</h1>
+      <div class="header-meta">
+        <span class="badge badge-date">📅 2026年8月21日</span>
+        <span class="badge badge-count">📊 6 篇文獻</span>
+        <span class="badge badge-source">Powered by PubMed + NVIDIA AI</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="summary-card">
+    <h2>📋 今日文獻趨勢</h2>
+    <p class="summary-text">今日文獻聚焦於針灸與中草藥在精神疾病中的機制研究，特別是經絡調節、腸腦軸與神經可塑性方面的進展顯著，臨床轉化潛力高，顯示中醫精神醫學正從經驗應用向機制闡釋與多靶點協同調節方向深化。</p>
+  </div>
+
+  <div class='section'><div class='section-title'><span class='section-icon'>⭐</span>今日精選 TOP Picks</div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#1</span>
+            <span class="emoji-icon">⚡</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>電針改善围绝经期抑郁症小鼠前额叶皮层Glu/GABA平衡介导的突触可塑性</h3>
+          <p class="journal-source">Zhen ci yan jiu = Acupuncture research &middot; Electroacupuncture improves synaptic plasticity mediated by Glu/GABA balance in the medial prefrontal cortex of mice with perimenopausal depression</p>
+          <p>電針經調節前额叶皮层Glu/GABA平衡，改善围绝经期抑郁样行為及突触結構與功能可塑性，為更年期抑鬱症的非藥物治療提供機制依據。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">經建立围绝经期抑郁模型的雌性C57BL/6J小鼠（VCD+CUMS）</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">電針（穴位：腎俞BL23、三陰交SP6、百會GV20、印堂GV24+），每日30分鐘</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">對照組、模型組、雌二醇補充組(E2)</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">電針組顯著減少抑郁样行為，調節mPFC中Glu/GABA比例，促進突触蛋白表達與棘密度增加，結構與功能可塑性改善</span></div>
+            </div>
+          <div class="card-footer">
+            <span class="tag">電針</span><span class="tag">抑鬱症</span><span class="tag">腸腦軸</span><span class="tag">HPA軸</span><span class="tag">隨機對照試驗</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42621709/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#2</span>
+            <span class="emoji-icon">🧠</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>腸腦軸是否介導針灸的抗抑鬱效果？預臨床與臨床證據的系統性回顧</h3>
+          <p class="journal-source">Neuropsychiatric disease and treatment &middot; Does the Microbiota-Gut-Brain Axis Mediate the Antidepressant Effects of Acupuncture? A Structured Review of Preclinical and Clinical Evidence.</p>
+          <p>系統性回顧證實針灸可透過調節腸道菌群與代謝物質（如SCFAs）影響中樞神經功能，從而發揮抗抑鬱效果，腸腦軸為其重要介導路徑。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">抑鬱症或抑郁样表型的預臨床動物模型及臨床抑鬱症患者</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">各類針灸介入（體針、電針等）</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無針灸對照、假針灸或常規藥物治療</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">22項預臨床與4項臨床研究顯示：針灸改善行為伴隨腸道菌群結構變化及代謝物質（如乳酸、丁酸）水平上升，提議MGBA為針灸抗抑鬱效應的關鍵介導因子</span></div>
+            </div>
+          <div class="card-footer">
+            <span class="tag">針灸</span><span class="tag">抑鬱症</span><span class="tag">腸腦軸</span><span class="tag">系統性回顧</span><span class="tag">證候辨證</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42621636/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#3</span>
+            <span class="emoji-icon">🌿</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>修復甘麥大棗湯對癡呆行為與心理症狀的預臨床療效與分子機制</h3>
+          <p class="journal-source">Chinese medicine &middot; Modified Gan-Mai-Da-Zao decoction for behavioral and psychological symptoms of dementia: preclinical efficacy and molecular mechanisms.</p>
+          <p>修復甘麥大棗湯在動物模型中展現顯著的鎮靜催眠、抗焦慮與抗抑郁樣活性，潛力可用於改善癡呆行為與心理症狀（BPSD）。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">行為與心理症狀的動物模型（ICR小鼠，經鞘內注射Aβ或腦室內注射）</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">修復甘麥大棗湯（M-GMDZD）給藥14天</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">對照組（生理鹽水）或陽性藥物對照組</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">M-GMDZD顯著縮短潛伏期、增加睡眠時間（鎮靜催眠），減少開放場中央探索時間（抗焦慮），懸垂尾懸測試中增加掙扎時間（抗抑郁樣），同時調節海馬體BDNF與前额叶皮层5-HT水平</span></div>
+            </div>
+          <div class="card-footer">
+            <span class="tag">中草藥</span><span class="tag">失智症</span><span class="tag">焦慮症</span><span class="tag">抑鬱症</span><span class="tag">BDNF</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42618933/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#4</span>
+            <span class="emoji-icon">🔬</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>針灸介入於與疼痛相關情緒的神經迴路機制研究進展</h3>
+          <p class="journal-source">Zhen ci yan jiu = Acupuncture research &middot; [Research progress on neural circuit mechanisms of acupuncture intervention in pain-related emotions].</p>
+          <p>針灸可調節多個與焦慮、抑鬱及疼痛厭惡記憶相關的關鍵神經迴路（如rACC→thalamus、mPFC→amygdala），從而緩解疼痛伴隨的負面情緒。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">疼痛相關情緒障礙的動物模型或人類研究（敘述性回顧為主）</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">針灸（體針、電針等）</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無介入或假針灸</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">針灸調節rACCGlu→Th、rACCGlu→PAG、mPFC Glu/GABA調節amygdala、insula前叶等迴路，降低焦慮、抑郁及疼痛惡化記憶的行為表現</span></div>
+            </div>
+          <div class="card-footer">
+            <span class="tag">針灸</span><span class="tag">焦慮症</span><span class="tag">抑鬱症</span><span class="tag">神經發炎</span><span class="tag">證候辨證</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42621721/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#5</span>
+            <span class="emoji-icon">🫁</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>中醫治療中性粒細胞介導的急性肺損傷：從單一機制靶向到多機制協同調節</h3>
+          <p class="journal-source">International immunopharmacology &middot; Traditional Chinese medicine for neutrophil-mediated acute lung injury: from single-mechanism targeting to multi-mechanism synergistic regulation.</p>
+          <p>中醫藥透過調節中性粒細胞的募集、激活、遷移及凋亡等多個環節，發揮多靶點協同作用，對急性肺損傷/急性呼吸窘迫症候群具潛在治療價值。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">急性肺損傷/急性呼吸窘迫症候群的動物模型或細胞實驗</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">中醫單方或複方製劑（如連翹、板藍根、薏苡仁等）</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">對照組或西藥單靶點藥物</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">中醫藥可同時抑制中性粒細胞過度募集、減少ROS釋放、降低炎症因子（IL-1β、TNF-α、IL-6）釋放、促進凋亡，肺組織損傷減輕，血氧改善</span></div>
+            </div>
+          <div class="card-footer">
+            <span class="tag">中西整合</span><span class="tag">神經發炎</span><span class="tag">HPA軸</span><span class="tag">系統性回顧</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42624020/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div></div>
+
+  <div class='section'><div class='section-title'><span class='section-icon'>📚</span>其他值得關注的文獻</div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">👆</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>自我按壓穴位在骨關節炎自我管理與護理成效的系統性回顧與統合分析</h3>
+          <p class="journal-source">Geriatric nursing (New York, N.Y.)</p>
+          <p>系統性回顧與統合分析顯示自我按壓穴位可顯著改善骨關節炎患者的疼痛、功能、睡眠及生活品質，為非藥物自我管理提供有效護理策略。</p>
+          <div class="card-footer">
+            <span class="tag">推拿</span><span class="tag">老年精神醫學</span><span class="tag">系統性回顧</span><span class="tag">統合分析</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42623907/" target="_blank">PubMed →</a>
+          </div>
+        </div></div>
+
+  <div class='topic-section section'><div class='section-title'><span class='section-icon'>📊</span>主題分佈</div>
+            <div class="topic-row">
+              <span class="topic-name">針灸</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+              <span class="topic-count">4</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">抑鬱症</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+              <span class="topic-count">4</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">電針</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">腸腦軸</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">中草藥</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">失智症</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:25%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">神經發炎</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">HPA軸</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">系統性回顧</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">BDNF</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:25%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">焦慮症</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">2</span>
+            </div></div>
+
+  <div class='keywords-section section'><div class='section-title'><span class='section-icon'>🏷️</span>關鍵字</div><div class='keywords'><span class="keyword">針灸</span><span class="keyword">電針</span><span class="keyword">抑鬱症</span><span class="keyword">腸腦軸</span><span class="keyword">失智症</span><span class="keyword">神經可塑性</span><span class="keyword">中草藥</span><span class="keyword">HPA軸</span><span class="keyword">BDNF</span><span class="keyword">系統性回顧</span></div></div>
+
+  <div class="links-banner">
+    <a href="https://www.leepsyclinic.com/" class="banner-link" target="_blank">
+      <span class="banner-icon">🏥</span>
+      <span class="banner-name">李政洋身心診所首頁</span>
+      <span class="banner-arrow">→</span>
+    </a>
+    <a href="https://blog.leepsyclinic.com/" class="banner-link" target="_blank">
+      <span class="banner-icon">📬</span>
+      <span class="banner-name">訂閱電子報</span>
+      <span class="banner-arrow">→</span>
+    </a>
+    <a href="https://buymeacoffee.com/CYlee" class="banner-link" target="_blank">
+      <span class="banner-icon">☕</span>
+      <span class="banner-name">Buy Me a Coffee</span>
+      <span class="banner-arrow">→</span>
+    </a>
+  </div>
+
+  <footer>
+    <span>資料來源：PubMed &middot; 分析模型：nvidia/nemotron-3-super-120b-a12b</span>
+    <span><a href="https://github.com/u8901006/tcm-psychiatry">GitHub</a></span>
+  </footer>
+</div>
+</body>
+</html>
