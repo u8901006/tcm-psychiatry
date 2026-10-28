@@ -2,7 +2,7 @@ import { readFileSync, writeFileSync, existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 const API_ENDPOINTS = ["https://integrate.api.nvidia.com/v1"];
-const MODELS = (process.env.NVIDIA_MODELS || "moonshotai/kimi-k2-thinking,moonshotai/kimi-k2-instruct").split(",").map(s => s.trim()).filter(Boolean);
+const MODELS = (process.env.NVIDIA_MODELS || "nvidia/nemotron-3.5-lightning-30b-a3b,deepseek-ai/deepseek-v4.1-flash").split(",").map(s => s.trim()).filter(Boolean);
 const MAX_TOKENS = 16384;
 const TIMEOUT_MS = 480_000;
 const MAX_PAPERS_TO_AI = 30;
