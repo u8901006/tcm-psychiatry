@@ -9,6 +9,10 @@ on:
         description: "Target date (YYYY-MM-DD), leave empty for today"
         required: false
         default: ""
+      deploy_only:
+        description: "Deploy the existing docs without generating a report"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -30,11 +34,13 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Node.js 24
+        if: ${{ !inputs.deploy_only }}
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: "24"
 
       - name: Determine date
+        if: ${{ !inputs.deploy_only }}
         id: date
         run: |
           if [ -n "${{ github.event.inputs.date }}" ]; then
@@ -45,6 +51,7 @@ jobs:
           fi
 
       - name: Fetch papers from PubMed
+        if: ${{ !inputs.deploy_only }}
         run: node scripts/fetch-papers.mjs
         env:
           TARGET_DATE: ${{ steps.date.outputs.target }}
@@ -53,6 +60,7 @@ jobs:
         continue-on-error: true
 
       - name: Check papers data
+        if: ${{ !inputs.deploy_only }}
         id: papers
         run: |
           if [ -f papers.json ] && grep -q '"count"' papers.json; then
@@ -64,15 +72,18 @@ jobs:
           fi
 
       - name: Generate report with NVIDIA AI
+        if: ${{ !inputs.deploy_only }}
         env:
           NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
           TARGET_DATE: ${{ steps.date.outputs.target }}
         run: node scripts/generate-report.mjs
 
       - name: Generate index page
+        if: ${{ !inputs.deploy_only }}
         run: node scripts/generate-index.mjs
 
       - name: Commit and push
+        if: ${{ !inputs.deploy_only }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -95,6 +106,7 @@ jobs:
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
 
       - name: Summary
+        if: ${{ !inputs.deploy_only }}
         run: |
           echo "### 📄 TCM Psychiatry Daily Report" >> "$GITHUB_STEP_SUMMARY"
           echo "**Date:** ${{ steps.date.outputs.target }}" >> "$GITHUB_STEP_SUMMARY"
